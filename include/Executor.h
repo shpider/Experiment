@@ -13,11 +13,18 @@ namespace shpider {
         enum direction dir;
     };
 
+    struct dist
+    {
+        int x,y;
+    };
+
     bool operator ==(const Pose &A,const Pose&B);
 
     class Executor {
     private:
         Pose pose;
+        bool speed;
+
     public:
         static Executor* NewExecutor(const Pose &my_pose= {0,0,direction::N});
         Executor();
@@ -32,7 +39,8 @@ namespace shpider {
         virtual Pose Query();
         virtual void TurnLeft();
         virtual void TurnRight();
-
+        virtual void accelerate();
+        virtual void MoveForward();
     };
 
 }

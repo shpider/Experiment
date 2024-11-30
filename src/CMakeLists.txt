@@ -8,6 +8,8 @@ ADD_COMPILE_OPTIONS("-Wall")
 ADD_COMPILE_OPTIONS("-Werror")
 ADD_LIBRARY(training ${SOURCE}
         ../include/list.h
-        Executor.cpp)
+        Executor.cpp
+        ../include/ExecutorImpl.h
+        ExecutorImpl.cpp)
 
 TARGET_INCLUDE_DIRECTORIES(training PUBLIC "${INCLUDE}")
