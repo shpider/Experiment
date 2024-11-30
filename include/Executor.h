@@ -4,11 +4,13 @@
 #include<iostream>
 #include<cstring>
 
+enum class direction {N,E,S,W};
+
 namespace shpider {
     struct Pose
     {
         int x,y;
-        char heading;
+        enum direction dir;
     };
 
     bool operator ==(const Pose &A,const Pose&B);
@@ -17,9 +19,10 @@ namespace shpider {
     private:
         Pose pose;
     public:
-        static Executor* NewExecutor(const Pose &my_pose= {0,0,'N'});
-        Executor(void) = default;
-        virtual ~Executor(void) = default;
+        static Executor* NewExecutor(const Pose &my_pose= {0,0,direction::N});
+        Executor();
+        explicit Executor(Pose my_pose);
+        virtual ~Executor() = default;
 
         Executor(const Executor&) = delete;
         Executor& operator=(const Executor&) = delete;
