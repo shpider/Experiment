@@ -2,6 +2,7 @@
 
 namespace shpider{
 
+dist D[4] = {{0,1},{1,0},{0,-1},{-1,0}};
 
     bool operator ==(const Pose &A,const Pose&B)
     {
@@ -15,10 +16,10 @@ namespace shpider{
         return p;
     }
 
-    Executor::Executor():pose({0,0,direction::N})    //作为默认的初始化参数
+    Executor::Executor():pose({0,0,direction::N}), speed(false)    //作为默认的初始化参数
     {}
 
-    Executor::Executor(Pose my_pose):pose({0,0,direction::N})
+    Executor::Executor(Pose my_pose):pose({0,0,direction::N}), speed(false)
     {
         pose = my_pose;
     }
@@ -33,35 +34,43 @@ namespace shpider{
 
     void Executor::Execute(const std::string& command)
     {
-        int i = 0;
-        while (command[i] != '\0') {
-            if (command[i] == 'M')
-                switch (pose.dir) {
-                case direction::N:
-                    pose.y++;
-                    break;
-                case direction::S:
-                    pose.y--;
-                    break;
-                case direction::W:
-                    pose.x--;
-                    break;
-                case direction::E:
-                    pose.x++;
-                    break;
-                default:
-                    break;
-                }
-
-            else if (command[i] == 'L')
+        for (const auto c:command)
+            if (c == 'M') {
+                if(speed)MoveForward();
+                MoveForward();
+            }
+            else if (c == 'L'){
+                if(speed)MoveForward();
                 TurnLeft();
-            else if (command[i] == 'R')
+            }
+            else if (c == 'R') {
+                if(speed) MoveForward();
                 TurnRight();
+            }
+            else if (c =='F') accelerate();
+            // else if (command[i] == ' ') continue;
+            else
+                std::cout << "Invalid command" << std::endl;
+        /*int i = 0;
+        while (command[i] != '\0') {
+            if (command[i] == 'M') {
+                if(speed)MoveForward();
+                 MoveForward();
+            }
+            else if (command[i] == 'L'){
+                if(speed)MoveForward();
+                TurnLeft();
+            }
+            else if (command[i] == 'R') {
+                if(speed) MoveForward();
+                TurnRight();
+            }
+            else if (command[i]=='F') accelerate();
             // else if (command[i] == ' ') continue;
             else
                 std::cout << "Invalid command" << std::endl;
             i++;
-        }
+        }*/
     }
 
     Pose Executor::Query()
@@ -101,5 +110,33 @@ namespace shpider{
                 pose.dir = direction::S;break;
             default:break;
         }*/
+    }
+
+    void Executor::MoveForward()
+    {
+        pose.x += D[static_cast<int>(pose.dir)].x;
+        pose.y += D[static_cast<int>(pose.dir)].y;
+        /*switch (pose.dir)
+        {
+        case direction::N:
+            pose.y++;
+            break;
+        case direction::S:
+            pose.y--;
+            break;
+        case direction::W:
+            pose.x--;
+            break;
+        case direction::E:
+            pose.x++;
+            break;
+        default:
+            break;
+        }*/
+    }
+
+    void Executor::accelerate()
+    {
+        speed = !speed;
     }
 }
