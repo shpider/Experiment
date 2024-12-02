@@ -35,8 +35,8 @@ namespace shpider {
         Executor& operator=(const Executor&) = delete;
 
         virtual void SetPose(const Pose &my_pose);
-        virtual void Execute(const std::string& command);
-        virtual Pose Query();
+        virtual void Execute(const std::string& command) noexcept;
+        virtual Pose Query() noexcept;
         virtual void TurnLeft();
         virtual void TurnRight();
         virtual void accelerate();
