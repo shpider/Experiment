@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 #include "Executor.h"
+#include"PoseEq.h"
+
 namespace shpider{
 TEST(ExecutorTest, should_return_init_pose_when_without_command)
 {

@@ -4,7 +4,9 @@ ADD_SUBDIRECTORY(googletest EXCLUDE_FROM_ALL)
 AUX_SOURCE_DIRECTORY(. SOURCE)
 ADD_EXECUTABLE(training_main ${SOURCE}
         FTest.cpp
-        Impl_Test.cpp)
+        ImplTest.cpp
+        PoseEq.h
+        PoseEq.cpp)
 
 TARGET_LINK_LIBRARIES(training_main training gtest_main)
 

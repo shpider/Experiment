@@ -18,7 +18,7 @@ namespace shpider {
         int x,y;
     };
 
-    bool operator ==(const Pose &A,const Pose&B);
+    //bool operator ==(const Pose &A,const Pose&B);
 
     class Executor {
     private:
@@ -39,7 +39,7 @@ namespace shpider {
         virtual Pose Query() noexcept;
         virtual void TurnLeft();
         virtual void TurnRight();
-        virtual void accelerate();
+        virtual void Accelerate();
         virtual void MoveForward();
     };
 
